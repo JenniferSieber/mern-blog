@@ -8,7 +8,6 @@ export default function Header() {
   const path = useLocation().pathname;
   return (
     <Navbar className="border-b-2">
-
       <Link
         to="/"
         className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white"
@@ -19,7 +18,6 @@ export default function Header() {
         </span>
         Blog
       </Link>
-
       <form>
         <TextInput
           type="text"
@@ -28,22 +26,19 @@ export default function Header() {
           className="hidden lg:inline"
         />
       </form>
-
       <Button className="w-12 h-10 lg:hidden" color="gray" pill>
         <AiOutlineSearch className="flex gap-2 md:order-2" />
       </Button>
-
       <div className="flex gap-2 md:order-2">
         <Button className="w-12 h-10 hidden sm:inline" color="gray" pill>
           <FaMoon />
         </Button>
         <Link className="c" to="/sign-in">
-          <Button gradientDuoTone="purpleToBlue">Sign In</Button>
+          <Button gradientDuoTone="purpleToBlue" outline>Sign In</Button>
         </Link>
         {/* hamburger */}
         <Navbar.Toggle />
       </div>
-
       <Navbar.Collapse>
         <Navbar.Link active={path === "/"} as={"div"}>
           <Link to="/">Home</Link>
