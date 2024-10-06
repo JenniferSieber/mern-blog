@@ -91,7 +91,7 @@ export default function SignUp() {
                 type="password"
                 placeholder="Password(8 or more characters)"
                 id="password"
-                required minlength="8"
+                required minLength="8"
                 onChange={handleChange}
               />
             </div>

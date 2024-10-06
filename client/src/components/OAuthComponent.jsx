@@ -3,6 +3,7 @@ import React from "react";
 import { AiFillGoogleCircle } from "react-icons/ai";
 
 export default function OAuthComponent() {
+  
   const handleGoogleClick = async () => {
     console.log("Google Sign In");
   };
