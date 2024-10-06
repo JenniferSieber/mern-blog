@@ -70,3 +70,14 @@ export const signin = async (req, res, next) => {
     next(error)
   }
 };
+
+// Google OAuth Signin ts: 3:29:00
+export const google = async (req, res, next) => {
+  console.log('google controller')
+  const { email, name, googlePhotoURL } = req.body;
+  try {
+
+  } catch (error) {
+    next(error);
+  }
+}
