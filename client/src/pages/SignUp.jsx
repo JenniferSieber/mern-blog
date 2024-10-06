@@ -16,9 +16,9 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (!formData.username || formData.email || FormData.password) {
-    //   return setErrorMessage("Please complete all fields.");
-    // }
+    if (!formData.username || formData.email || FormData.password) {
+      return setErrorMessage("Please complete all fields.");
+    }
 
     try {
       setLoading(true);

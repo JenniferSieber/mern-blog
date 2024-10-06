@@ -1,28 +1,32 @@
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import OAuthComponent from "../components/OAuthComponent";
+import {
+  signInFailure,
+  signInStart,
+  signInSuccess,
+} from "../redux/user/userSlice";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
-  // console.log(formData) //test handleChange
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (!formData.username || formData.email || FormData.password) {
-    //   return setErrorMessage("Please complete all fields.");
-    // }
+    if (!formData.email || !formData.password) {
+      return dispatch(signInFailure("Please complete all fields."));
+    }
 
     try {
-      setLoading(true);
-      setErrorMessage(null);
+      dispatch(signInStart());
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: { "Content-type": "application/json" },
@@ -31,18 +35,15 @@ export default function SignIn() {
 
       const data = await res.json();
       if (data.success === false) {
-        setLoading(false);
-        return setErrorMessage(data.message);
+        dispatch(signInFailure(data.message));
       }
-      // setLoading(false);
+    
       if (res.ok) {
-        setLoading(false);
+        dispatch(signInSuccess(data));
         navigate("/");
       }
     } catch (error) {
-      // client side error handling
-      setLoading(false);
-      setErrorMessage(error.message);
+      dispatch(signInFailure(error.message));
     }
   };
   return (
@@ -57,31 +58,21 @@ export default function SignIn() {
             Blog
           </Link>
           <p className="text-sm mt-5">
-            This is a Blog Project for demos. You can sign in with your email & password or
-            Google!
+            This is a Blog Project for demos. You can sign in with your email &
+            password or Google!
           </p>
         </div>
 
         {/* Right Side  */}
         <div className="flex-1">
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-            {/* <div>
-              <Label value="Your Username" />
-              <TextInput
-                type="text"
-                placeholder="Username"
-                id="username"
-                required
-                onChange={handleChange}
-              />
-            </div> */}
             <div>
               <Label value="Your Email" />
               <TextInput
                 type="email"
                 placeholder="name@company.com"
                 id="email"
-                required
+                // required
                 onChange={handleChange}
               />
             </div>
@@ -89,9 +80,9 @@ export default function SignIn() {
               <Label value="Your Password" />
               <TextInput
                 type="password"
-                placeholder="Password"
+                placeholder="********"
                 id="password"
-                required
+                // required
                 onChange={handleChange}
               />
             </div>
