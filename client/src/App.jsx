@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Header from './components/Header';
+import FooterComponent from './components/FooterComponent';
+import HeaderComponent from './components/HeaderComponent';
 import About from "./pages/About";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
@@ -13,7 +14,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Header />
+      <HeaderComponent />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -22,6 +23,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/projects" element={<Projects />} />
       </Routes>
+      <FooterComponent />
     </BrowserRouter>
   )
 }

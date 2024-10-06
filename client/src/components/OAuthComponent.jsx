@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function OAuth() {
+export default function OAuthComponent() {
   return (
     <div>
       OAuth Google Button

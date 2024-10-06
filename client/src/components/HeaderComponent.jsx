@@ -4,7 +4,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 
-export default function Header() {
+export default function HeaderComponent() {
   const path = useLocation().pathname;
   return (
     <Navbar className="border-b-2">
