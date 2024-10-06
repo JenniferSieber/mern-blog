@@ -58,8 +58,8 @@ export default function SignUp() {
             Blog
           </Link>
           <p className="text-sm mt-5">
-            This is a Blog Project for demos. You can sign in with your email or
-            Google!
+            This is a Blog Project for demos. You can sign up today with your email or
+          Google!
           </p>
         </div>
 

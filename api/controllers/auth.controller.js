@@ -39,17 +39,15 @@ export const signup = async (req, res, next) => {
 
 // Signin Controller
 export const signin = async (req, res, next) => {
-  // console.log("signin");
   const { email, password } = req.body;
-  // console.log(email, password);
   if (!email || email === "" || !password || password === "") {
-    next(errorHandler(400, "All fields required for signup."));
+    next(errorHandler(400, "All fields required for signin."));
   }
 
   try {
     const validUser = await User.findOne({ email });
     if (!validUser) {
-      next(errorHandler(404, "User not found."));
+      next(errorHandler(404, "Invalid Credentials."));
     }
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) {
