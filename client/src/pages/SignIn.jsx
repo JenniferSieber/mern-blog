@@ -21,9 +21,9 @@ export default function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.email || !formData.password) {
-      return dispatch(signInFailure("Please complete all fields."));
-    }
+    // if (!formData.email || !formData.password) {
+    //   return dispatch(signInFailure("Please complete all fields."));
+    // }
 
     try {
       dispatch(signInStart());
@@ -72,7 +72,7 @@ export default function SignIn() {
                 type="email"
                 placeholder="name@company.com"
                 id="email"
-                // required
+                required
                 onChange={handleChange}
               />
             </div>
@@ -82,7 +82,7 @@ export default function SignIn() {
                 type="password"
                 placeholder="********"
                 id="password"
-                // required
+                required
                 onChange={handleChange}
               />
             </div>

@@ -16,9 +16,9 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.username || formData.email || FormData.password) {
-      return setErrorMessage("Please complete all fields.");
-    }
+    // if (!formData.username || formData.email || FormData.password) {
+    //   return setErrorMessage("Please complete all fields.");
+    // }
 
     try {
       setLoading(true);
@@ -89,9 +89,9 @@ export default function SignUp() {
               <Label value="Your Password" />
               <TextInput
                 type="password"
-                placeholder="Password"
+                placeholder="Password(8 or more characters)"
                 id="password"
-                required
+                required minlength="8"
                 onChange={handleChange}
               />
             </div>
