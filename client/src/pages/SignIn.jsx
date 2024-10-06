@@ -18,7 +18,7 @@ export default function SignIn() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
- 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
@@ -37,7 +37,7 @@ export default function SignIn() {
       if (data.success === false) {
         dispatch(signInFailure(data.message));
       }
-    
+
       if (res.ok) {
         dispatch(signInSuccess(data));
         navigate("/");
@@ -58,7 +58,7 @@ export default function SignIn() {
             Blog
           </Link>
           <p className="text-sm mt-5">
-            This is a Blog Project for demos. You can sign in with your email &
+            You can sign in with your email &
             password or Google!
           </p>
         </div>

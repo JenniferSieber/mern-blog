@@ -12,7 +12,7 @@ export default function SignUp() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
-  // console.log(formData) //test handleChange
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,13 +34,12 @@ export default function SignUp() {
         setLoading(false);
         return setErrorMessage(data.message);
       }
-      // setLoading(false);
+      
       if (res.ok) {
         setLoading(false);
         navigate("/sign-in");
       }
     } catch (error) {
-      // client side error handling
       setLoading(false);
       setErrorMessage(error.message);
     }
@@ -58,7 +57,7 @@ export default function SignUp() {
             Blog
           </Link>
           <p className="text-sm mt-5">
-            This is a Blog Project for demos. You can sign up today with your email or
+            You can sign up today with your email or
           Google!
           </p>
         </div>
