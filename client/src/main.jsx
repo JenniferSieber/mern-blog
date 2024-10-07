@@ -8,8 +8,9 @@ import { persistor, store } from "./redux/store.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+    <PersistGate persistor={persistor} loading={null}>
       <App />
     </PersistGate>
   </Provider>
 );
+
