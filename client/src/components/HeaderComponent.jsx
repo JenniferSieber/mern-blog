@@ -12,6 +12,8 @@ export default function HeaderComponent() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
+  console.log(currentUser.profilePicture)
+  // console.log(currentUser.currentUser)
 
   const handleSignout = async () => {
     console.log(signout);
@@ -55,7 +57,7 @@ export default function HeaderComponent() {
             arrowIcon={false}
             inline
             label={
-              <Avatar alt="user" image={currentUser.profilePicture} rounded />
+              <Avatar alt="user" img={currentUser.profilePicture} rounded />
             }
           >
             <Dropdown.Header>
@@ -71,7 +73,7 @@ export default function HeaderComponent() {
             <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
-          <Link className="c" to="/sign-in">
+          <Link to="/sign-in">
             <Button gradientDuoTone="purpleToBlue" outline>
               Sign In
             </Button>

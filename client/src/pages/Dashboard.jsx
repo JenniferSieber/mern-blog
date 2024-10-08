@@ -6,14 +6,16 @@ import DashSidebarComponent from "../components/DashSidebarComponent";
 export default function Dashboard() {
   const location = useLocation();
   const [tab, setTab] = useState("");
+
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const tabFromUrl = urlParams.get("tab");
-    console.log(tabFromUrl);
+    // console.log(tabFromUrl);
     if (tabFromUrl) {
       setTab(tabFromUrl);
     }
   }, [location.search]);
+  console.log(`Tab on Dashboard.jsx ${tab}`)
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
@@ -21,7 +23,7 @@ export default function Dashboard() {
         {/* Sidebar */}
         <DashSidebarComponent />
       </div>
-      {/* User Profile */}
+      {/* User Profile Tabs*/}
       {/* tab options: DashProfile, DashPosts, DashComments, DashboardComp */}
       {/* profile... */}
       {tab === "profile" && <DashProfileComponent />}

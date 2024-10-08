@@ -7,8 +7,10 @@ import { Link, useLocation } from "react-router-dom";
 export default function DashSidebarComponent() {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { currentUser } = useSelector((state) => state.user);
   const [tab, setTab] = useState("");
+
+  const { currentUser } = useSelector((state) => state.user);
+  console.log(`CurrentUserDash: ${currentUser.username}`)
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -40,13 +42,15 @@ export default function DashSidebarComponent() {
             <Sidebar.Item
               active={tab === "profile"}
               icon={HiUser}
-              label={currentUser ? "User" : ""}
+              // label={currentUser ? "User" : "OTHER"}
+              label={"User"}
               labelColor="dark"
               as="div"
             >
-              Profile
+              {currentUser.username}
             </Sidebar.Item>
           </Link>
+          
           {/* Sign out */}
           <Sidebar.Item
             icon={HiArrowSmRight}
@@ -55,6 +59,7 @@ export default function DashSidebarComponent() {
           >
             Sign Out
           </Sidebar.Item>
+
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>
