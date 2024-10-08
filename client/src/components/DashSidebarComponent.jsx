@@ -10,7 +10,7 @@ export default function DashSidebarComponent() {
   const [tab, setTab] = useState("");
 
   const { currentUser } = useSelector((state) => state.user);
-  console.log(`CurrentUserDash: ${currentUser.username}`)
+  // console.log(`CurrentUserDash: ${currentUser.username}`)
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);

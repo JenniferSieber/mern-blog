@@ -15,7 +15,7 @@ export default function Dashboard() {
       setTab(tabFromUrl);
     }
   }, [location.search]);
-  console.log(`Tab on Dashboard.jsx ${tab}`)
+  // console.log(`Tab on Dashboard.jsx ${tab}`)
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
