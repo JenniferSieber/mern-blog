@@ -70,7 +70,6 @@ export const signin = async (req, res, next) => {
 
 // Google OAuth Signin
 export const google = async (req, res, next) => {
-  console.log("google controller");
   const { email, name, googlePhotoUrl } = req.body;
   try {
     // User has already created account- signin process
@@ -121,6 +120,4 @@ export const google = async (req, res, next) => {
 };
 
 // DELETE user
-export const deleteUser = (req, res, next) => {
-  
-}
+export const deleteUser = (req, res, next) => {};

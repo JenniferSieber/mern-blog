@@ -97,11 +97,11 @@ export const deleteUser = async (req, res, next) => {
 // POST User signout
 export const signout = (req, res, next) => {
   try {
-    res 
+    res
       .clearCookie("access_token")
       .status(200)
       .json("User sign out successful.");
-  } catch(error) {
+  } catch (error) {
     next(error);
   }
 };
