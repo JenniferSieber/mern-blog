@@ -103,8 +103,8 @@ export default function DashProfileComponent() {
           onClick={() => filePickerRef.current.click()}
         >
           {imageFileUploadProgress && (
-            <CircularProgressbar 
-              value={imageFileUploadProgress || 0} 
+            <CircularProgressbar
+              value={imageFileUploadProgress || 0}
               text={`${imageFileUploadProgress}%`}
               strokeWidth={5}
               styles={{
@@ -116,7 +116,9 @@ export default function DashProfileComponent() {
                   left: 0,
                 },
                 path: {
-                  stroke: `rgba(62, 152, 199, ${imageFileUploadProgress / 100 })`,
+                  stroke: `rgba(62, 152, 199, ${
+                    imageFileUploadProgress / 100
+                  })`,
                 },
               }}
             />
@@ -124,7 +126,11 @@ export default function DashProfileComponent() {
           <img
             src={imageFileUrl || currentUser.currentUser.profilePicture}
             alt="user"
-            className={`rounded-full w-full h-full object-cover border-8 border-[lightgray] ${imageFileUploadProgress && imageFileUploadProgress < 100 && 'opacity-60'}`}
+            className={`rounded-full w-full h-full object-cover border-8 border-[lightgray] ${
+              imageFileUploadProgress &&
+              imageFileUploadProgress < 100 &&
+              "opacity-60"
+            }`}
           />
         </div>
         {imageFileUploadError && (

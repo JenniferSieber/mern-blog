@@ -7,13 +7,14 @@ import authRoutes from "./routes/auth.route.js";
 import userRoutes from "./routes/user.route.js";
 dotenv.config();
 
+const PORT = process.env.PORT || 3001;
+const app = express();
+
+// connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("Connection to MongoDB successful."))
   .catch((error) => console.log("Error in DB connection", error));
-
-const app = express();
-const PORT = process.env.PORT || 3001;
 
 // API Middleware
 app.use(express.json());

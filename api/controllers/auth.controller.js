@@ -1,7 +1,7 @@
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
-import { errorHandler } from "../utils/Error.js";
+import { errorHandler } from "../utils/error.js";
 
 // Signup Controller
 export const signup = async (req, res, next) => {

@@ -1,10 +1,12 @@
 import express from "express";
-import { getUser, test } from "../controllers/user.controller.js";
+import { test, updateUser } from "../controllers/user.controller.js";
+import { verifyToken } from "../utils/verifyUser.js";
 
 const router = express.Router();
 
 // API TEST route
 router.get("/test", test);
-// router.get("/:id")
-router.get('/:userId', getUser);
+// Update Profile Data
+router.put("/update/:userId", verifyToken, updateUser);
+
 export default router;
