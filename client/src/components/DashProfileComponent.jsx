@@ -10,6 +10,7 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { app } from "../firebase";
 import {
   deleteUserFailure,
@@ -17,7 +18,7 @@ import {
   deleteUserSuccess,
   updateFailure,
   updateStart,
-  updateSuccess
+  updateSuccess,
 } from "../redux/user/userSlice";
 import { userSignout } from "../utils/userSignout";
 
@@ -228,14 +229,25 @@ export default function DashProfileComponent() {
           outline
           disabled={loading || imageFileUploading}
         >
-          {loading ? "Loading" : "Update"}
+          {loading ? "Updating Profile" : "Update Profile"}
         </Button>
+        {currentUser.isAdmin && (
+          <Link to={"/create-post"}>
+            <Button
+              type="button"
+              gradientDuoTone="purpleToPink"
+              className="w-full"
+            >
+              Create a Post
+            </Button>
+          </Link>
+        )}
       </form>
       <div className="text-red-500 flex justify-between mt-5">
         <span className="cursor-pointer" onClick={() => setShowModal(true)}>
           Delete Account
         </span>
-        <span className="cursor-pointer" onClick={userSignout}>
+        <span className="cursor-pointer" onClick={() => userSignout(dispatch)}>
           Sign Out
         </span>
       </div>
@@ -249,11 +261,6 @@ export default function DashProfileComponent() {
           {updateUserError ? updateUserError : error}
         </Alert>
       )}
-      {/* {error && (
-        <Alert color="failure" className="mt-5">
-          {error}
-        </Alert>
-      )} */}
       <Modal
         show={showModal}
         onClose={() => setShowModal(false)}

@@ -1,5 +1,7 @@
+import { signoutSuccess } from "../redux/user/userSlice";
+
   // POST user signout
-  export const handleSignout = async () => {
+  export const userSignout = async (dispatch) => {
     try {
       const res = await fetch("/api/user/signout", {
         method: "POST",

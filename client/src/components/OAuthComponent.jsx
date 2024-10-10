@@ -1,11 +1,3 @@
-// import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
-// import { Button } from "flowbite-react";
-// import React from "react";
-// import { AiFillGoogleCircle } from "react-icons/ai";
-// import { useDispatch } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-// import { app } from "../../firebase";
-// import { signInSuccess } from "../redux/user/userSlice";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { Button } from "flowbite-react";
 import { AiFillGoogleCircle } from "react-icons/ai";
@@ -18,6 +10,7 @@ export default function OAuthComponent() {
   const auth = getAuth(app);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleGoogleClick = async () => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
