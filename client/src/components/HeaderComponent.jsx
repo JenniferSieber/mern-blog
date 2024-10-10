@@ -4,7 +4,7 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toggleTheme } from "../redux/theme/themeSlice";
-import { signoutSuccess } from "../redux/user/userSlice";
+import { userSignout } from "../utils/userSignout";
 
 export default function HeaderComponent() {
   const path = useLocation().pathname;
@@ -17,23 +17,6 @@ export default function HeaderComponent() {
   // Future Search functionality
   const handleSubmit = () => {
     console.log("handleSubmit");
-  };
-
-  // POST User signout from header list
-  const handleSignout = async () => {
-    try {
-      const res = await fetch("/api/user/signout", {
-        method: "POST",
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        console.log(data.message);
-      } else {
-        dispatch(signoutSuccess());
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
   };
 
   return (
@@ -88,7 +71,7 @@ export default function HeaderComponent() {
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
+            <Dropdown.Item onClick={userSignout}>Sign out</Dropdown.Item>
           </Dropdown>
         ) : (
           <Link to="/sign-in">
