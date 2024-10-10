@@ -9,10 +9,11 @@ export const test = (req, res) => {
 
 // PUT updateUser
 export const updateUser = async (req, res, next) => {
+  // confirm user authentication
   if (req.user.id !== req.params.userId) {
     return next(errorHandler(403, 'Unauthorized to update this user.'));
   }
-  // new username validation 
+  // New password validation 
   let hashedPassword;
   if (req.body.password) {
     if (req.body.password.length < 8) {
@@ -22,7 +23,7 @@ export const updateUser = async (req, res, next) => {
     hashedPassword = bcryptjs.hashSync(req.body.password, 10);
   } 
   
-  // new username validation 
+  // New username validation
   if (req.body.username) {
     if (req.body.username.length < 5 || req.body.username.length > 20) {
       return next(errorHandler(400, "Username must be between 5 and 20 characters in length."));
