@@ -15,6 +15,7 @@ import {
   deleteUserFailure,
   deleteUserStart,
   deleteUserSuccess,
+  signoutSuccess,
   updateFailure,
   updateStart,
   updateSuccess,
@@ -98,7 +99,6 @@ export default function DashProfileComponent() {
 
   // PUT user update
   const handleSubmit = async (e) => {
-    console.log("handleSubmit");
     e.preventDefault();
     setUpdateUserError(null);
     setUpdateUserSuccess(null);
@@ -155,7 +155,19 @@ export default function DashProfileComponent() {
 
   // POST user signout
   const handleSignout = async () => {
-    console.log("handleSignout");
+    try {
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signoutSuccess());
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (

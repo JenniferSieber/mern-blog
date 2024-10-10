@@ -93,17 +93,15 @@ export const deleteUser = async (req, res, next) => {
     next(error);
   }
 };
-// export const deleteUser = async (req, res, next) => {
-//   // validate the user
-//   console.log(req.user.id, req.params.id)
-//   // if (req.user.id !== req.params.id) {
-//   //   return next(errorHandler(403, "You are not allowed to delete this user account."));
-//   // }
-//   // try {
-//   //   await User.findByIdAndDelete(req.params.userId);
-//   //   res.status(200).json("User has been deleted successfully.");
 
-//   // } catch(error) {
-//   //   next(error);
-//   // }
-// };
+// POST User signout
+export const signout = (req, res, next) => {
+  try {
+    res 
+      .clearCookie("access_token")
+      .status(200)
+      .json("User sign out successful.");
+  } catch(error) {
+    next(error);
+  }
+};

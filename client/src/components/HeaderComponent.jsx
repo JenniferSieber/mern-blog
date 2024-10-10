@@ -4,6 +4,7 @@ import { FaMoon, FaSun } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toggleTheme } from "../redux/theme/themeSlice";
+import { signoutSuccess } from "../redux/user/userSlice";
 
 export default function HeaderComponent() {
   const path = useLocation().pathname;
@@ -12,16 +13,29 @@ export default function HeaderComponent() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
-  
-  // console.log(currentUser.profilePicture)
 
-
+  // Future Search functionality
   const handleSubmit = () => {
     console.log("handleSubmit");
   };
+
+  // POST User signout from header list
   const handleSignout = async () => {
-    console.log(signout);
+    try {
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signoutSuccess());
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
+
   return (
     <Navbar className="border-b-2">
       <Link
