@@ -10,15 +10,23 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import { app } from "../firebase";
+import {
+  updateFailure,
+  updateStart,
+  updateSuccess,
+} from "../redux/user/userSlice";
 
 export default function DashProfileComponent() {
-  const currentUser = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
   const [imageFileUploadError, setImageFileUploadError] = useState(null);
   const [imageFileUploading, setImageFileUploading] = useState(false);
+  const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
+  const [updateUserError, setUpdateUserError] = useState(null);
   const [formData, setFormData] = useState({});
+  // const [showModal, setShowModal] = useState(false);
   const filePickerRef = useRef();
   const dispatch = useDispatch();
 
@@ -26,7 +34,6 @@ export default function DashProfileComponent() {
     const file = e.target.files[0];
     if (file) {
       setImageFile(file);
-      // create URL from file name
       setImageFileUrl(URL.createObjectURL(file));
     }
   };
@@ -72,20 +79,61 @@ export default function DashProfileComponent() {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setImageFileUrl(downloadURL);
-          setFormData({ ...FormData, profilePicture: downloadURL });
+          setFormData({ ...formData, profilePicture: downloadURL });
           setImageFileUploading(false);
         });
       }
     );
   };
 
-  const handleChange = async () => {
-    console.log("Async handleChange on TextInputs");
+  const handleChange = async (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
     console.log("handleSubmit");
+    e.preventDefault();
+    setUpdateUserError(null);
+    setUpdateUserSuccess(null);
+    if (Object.keys(formData).length === 0) {
+      setUpdateUserError("Requested updates to profile were unsuccessful.");
+      return;
+    }
+    if (imageFileUploading) {
+      setUpdateUserError("Please wait for image upload to complete.");
+      return;
+    }
+    try {
+      dispatch(updateStart());
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      console.log(data);
+      if (!res.ok) {
+        dispatch(updateFailure(data.message));
+        setUpdateUserError(data.message);
+      } else {
+        dispatch(updateSuccess(data));
+        setUpdateUserSuccess("User profile update successful.");
+      }
+    } catch (error) {
+      dispatch(updateFailure(error.message));
+      setUpdateUserError(error.message);
+    }
   };
+
+  const handleDeleteUser = async () => {
+    console.log('handleDeleteUser')
+  }
+  
+  const handleSignout = async () => {
+    console.log('handleSignout')
+  }
 
   return (
     <div className="max-w-lg mx-auto p-3 w-full">
@@ -124,7 +172,7 @@ export default function DashProfileComponent() {
             />
           )}
           <img
-            src={imageFileUrl || currentUser.currentUser.profilePicture}
+            src={imageFileUrl || currentUser?.profilePicture}
             alt="user"
             className={`rounded-full w-full h-full object-cover border-8 border-[lightgray] ${
               imageFileUploadProgress &&
@@ -140,14 +188,14 @@ export default function DashProfileComponent() {
           type="text"
           id="username"
           placeholder="username"
-          defaultValue={currentUser.currentUser.username}
+          defaultValue={currentUser.username}
           onChange={handleChange}
         />
         <TextInput
           type="email"
           id="email"
           placeholder="email"
-          defaultValue={currentUser.currentUser.email}
+          defaultValue={currentUser.email}
           onChange={handleChange}
         />
         <TextInput
@@ -156,10 +204,30 @@ export default function DashProfileComponent() {
           placeholder="password"
           onChange={handleChange}
         />
-        <Button type="submit" gradientDuoTone="purpleToBlue" outline>
-          Update
+        <Button 
+          type="submit" 
+          gradientDuoTone="purpleToBlue" 
+          outline 
+          disabled={loading || imageFileUploading}
+        >
+          {loading ? "Loading" : "Update"}
         </Button>
       </form>
+      {updateUserSuccess && (
+        <Alert color="success" className="mt-5">
+          {updateUserSuccess}
+        </Alert>
+      )}
+      {updateUserError && (
+        <Alert color="failure" className="mt-5">
+          {updateUserError}
+        </Alert>
+      )}
+      {/* {error && (
+        <Alert color="failure" className="mt-5">
+          {error}
+        </Alert>
+      )} */}
       <div className="text-red-500 flex justify-between mt-5">
         <span className="cursor-pointer">Delete Account</span>
       </div>

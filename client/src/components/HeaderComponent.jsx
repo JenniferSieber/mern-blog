@@ -12,9 +12,13 @@ export default function HeaderComponent() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
-  console.log(currentUser.profilePicture)
-  // console.log(currentUser.currentUser)
+  
+  // console.log(currentUser.profilePicture)
 
+
+  const handleSubmit = () => {
+    console.log("handleSubmit");
+  };
   const handleSignout = async () => {
     console.log(signout);
   };
@@ -29,7 +33,7 @@ export default function HeaderComponent() {
         </span>
         Blog
       </Link>
-      <form>
+      <form onSubmit={handleSubmit}>
         <TextInput
           type="text"
           placeholder="Search"
