@@ -119,3 +119,8 @@ export const google = async (req, res, next) => {
     next(error);
   }
 };
+
+// DELETE user
+export const deleteUser = (req, res, next) => {
+  
+}

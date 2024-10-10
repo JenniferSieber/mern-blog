@@ -26,7 +26,7 @@ export default function DashProfileComponent() {
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
   const [updateUserError, setUpdateUserError] = useState(null);
   const [formData, setFormData] = useState({});
-  // const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const filePickerRef = useRef();
   const dispatch = useDispatch();
 
@@ -129,8 +129,9 @@ export default function DashProfileComponent() {
 
   const handleDeleteUser = async () => {
     console.log('handleDeleteUser')
+    setShowModal(false);
   }
-  
+
   const handleSignout = async () => {
     console.log('handleSignout')
   }
@@ -213,6 +214,15 @@ export default function DashProfileComponent() {
           {loading ? "Loading" : "Update"}
         </Button>
       </form>
+      <div className="text-red-500 flex justify-between mt-5">
+        <span className="cursor-pointer" onClick={() => setShowModal(true)}>
+          Delete Account
+        </span>
+        <span className="cursor-pointer" onClick={handleSignout}>
+          Sign Out
+        </span>
+
+      </div>
       {updateUserSuccess && (
         <Alert color="success" className="mt-5">
           {updateUserSuccess}
@@ -228,9 +238,6 @@ export default function DashProfileComponent() {
           {error}
         </Alert>
       )} */}
-      <div className="text-red-500 flex justify-between mt-5">
-        <span className="cursor-pointer">Delete Account</span>
-      </div>
     </div>
   );
 }
