@@ -2,3 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+
+body {
+  height: 100vh;
+}
+
+/* Update ReactQuill Element for dark mode */
+.ql-editor {
+  font-size: 1.05rem;
+}
