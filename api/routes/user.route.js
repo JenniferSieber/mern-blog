@@ -3,7 +3,7 @@ import {
   deleteUser,
   signout,
   test,
-  updateUser
+  updateUser,
 } from "../controllers/user.controller.js";
 import { verifyToken } from "../utils/verifyUser.js";
 
