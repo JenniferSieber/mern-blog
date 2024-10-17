@@ -71,7 +71,9 @@ export default function HeaderComponent() {
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Dropdown.Item onClick={() => userSignout(dispatch)}>Sign out</Dropdown.Item>
+            <Dropdown.Item onClick={() => userSignout(dispatch)}>
+              Sign out
+            </Dropdown.Item>
           </Dropdown>
         ) : (
           <Link to="/sign-in">
