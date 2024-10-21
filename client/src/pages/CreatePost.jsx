@@ -25,7 +25,7 @@ export default function CreatePost() {
     console.log("handleUploadImage");
     try {
       if (!file) {
-        setImageUploadError("Please select an Image");
+        setImageUploadError("Please select an image.");
         return;
       }
       setImageUploadError(null);
@@ -119,7 +119,7 @@ export default function CreatePost() {
             size="sm"
             outline
             onClick={handleUploadImage}
-            // disabled={imageUploadProgress}
+            disabled={imageUploadProgress}
           >
             {imageUploadProgress ? (
               <div className="w-16 h-16">
