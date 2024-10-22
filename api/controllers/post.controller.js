@@ -37,10 +37,7 @@ export const create = async (req, res, next) => {
 };
 
 export const getPosts = async (req, res, next) => {
-  // console.log("getPosts");
   try {
-    // get a certain amount of posts with a
-    // show more button when posts exceed view limit
     const startIndex = parseInt(req.query.startIndex || 0);
     const limit = parseInt(req.query.limit) || 9;
     const sortDirection = req.query.order === "asc" ? 1 : -1;
@@ -59,7 +56,6 @@ export const getPosts = async (req, res, next) => {
       .sort({ updatedAt: sortDirection })
       .skip(startIndex)
       .limit(limit);
-    // need ttl num of posts for dashboard
     const totalPosts = await Post.countDocuments();
     const now = new Date();
     const oneMonthAgo = new Date(
